@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Manajemen Koleksi</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f7f7f7;
+      padding: 20px;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    input, select, button {
+      padding: 8px;
+      margin: 5px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      background-color: white;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #eee;
+    }
+    .rusak { color: red; font-weight: bold; }
+    .usang { color: orange; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <h1>📚 Manajemen Koleksi</h1>
+
+  <div>
+    <input id="judul" placeholder="Judul Koleksi">
+    <input id="jenis" placeholder="Jenis (Buku, Jurnal, Majalah)">
+    <input id="pengarang" placeholder="Pengarang/Editor">
+    <input id="tahun" type="number" placeholder="Tahun Terbit">
+    <input id="kode" placeholder="Kode Dewey Decimal (contoh: 100)">
+    <select id="kondisi">
+      <option value="baik">Baik</option>
+      <option value="rusak">Rusak</option>
+      <option value="usang">Usang</option>
+    </select>
+    <button onclick="tambah()">➕ Tambah Koleksi</button>
+  </div>
+
+  <h2>🔎 Pencarian Koleksi</h2>
+  <input id="search" placeholder="Cari berdasarkan Judul atau Kode" onkeyup="cari()">
+
+  <h2>📋 Daftar Koleksi</h2>
+  <table id="koleksiTable">
+    <thead>
+      <tr>
+        <th>Judul</th>
+        <th>Jenis</th>
+        <th>Pengarang</th>
+        <th>Tahun</th>
+        <th>Kode Dewey</th>
+        <th>Kondisi</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    function ambilData() {
+      return JSON.parse(localStorage.getItem("koleksi") || "[]");
+    }
+
+    function simpanData(data) {
+      localStorage.setItem("koleksi", JSON.stringify(data));
+    }
+
+    function tampilkan(data = ambilData()) {
+      const tbody = document.querySelector("#koleksiTable tbody");
+      tbody.innerHTML = "";
+      data.forEach((item, i) => {
+        const kondisiClass = item.kondisi === "rusak" ? "rusak" : item.kondisi === "usang" ? "usang" : "";
+        tbody.innerHTML += `
+          <tr>
+            <td>${item.judul}</td>
+            <td>${item.jenis}</td>
+            <td>${item.pengarang}</td>
+            <td>${item.tahun}</td>
+            <td>${item.kode}</td>
+            <td class="${kondisiClass}">${item.kondisi}</td>
+            <td>
+              ${item.kondisi !== 'baik' ? `<button onclick="hapus(${i})">🧹 Hapus</button>` : '-'}
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function tambah() {
+      const judul = document.getElementById("judul").value.trim();
+      const jenis = document.getElementById("jenis").value.trim();
+      const pengarang = document.getElementById("pengarang").value.trim();
+      const tahun = document.getElementById("tahun").value.trim();
+      const kode = document.getElementById("kode").value.trim();
+      const kondisi = document.getElementById("kondisi").value;
+
+      if (!judul || !jenis || !pengarang || !tahun || !kode) {
+        alert("⚠️ Lengkapi semua data koleksi!");
+        return;
+      }
+
+      const data = ambilData();
+      data.push({ judul, jenis, pengarang, tahun, kode, kondisi });
+      simpanData(data);
+      tampilkan();
+      kosongkanForm();
+    }
+
+    function kosongkanForm() {
+      document.getElementById("judul").value = "";
+      document.getElementById("jenis").value = "";
+      document.getElementById("pengarang").value = "";
+      document.getElementById("tahun").value = "";
+      document.getElementById("kode").value = "";
+      document.getElementById("kondisi").value = "baik";
+    }
+
+    function hapus(index) {
+      if (confirm("Yakin ingin menghapus koleksi ini?")) {
+        const data = ambilData();
+        data.splice(index, 1);
+        simpanData(data);
+        tampilkan();
+      }
+    }
+
+    function cari() {
+      const keyword = document.getElementById("search").value.toLowerCase();
+      const data = ambilData().filter(item =>
+        item.judul.toLowerCase().includes(keyword) ||
+        item.kode.toLowerCase().includes(keyword)
+      );
+      tampilkan(data);
+    }
+
+    // Tampilkan saat halaman dimuat
+    tampilkan();
+  </script>
+
+</body>
+</html>
