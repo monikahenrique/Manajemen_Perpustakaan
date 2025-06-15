@@ -2,122 +2,172 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Manajemen Koleksi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manajemen Perpustakaan</title>
   <style>
     body {
-      font-family: Arial;
-      background: #f7f7f7;
-      padding: 20px;
-    }
-    h1, h2 {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0; padding: 0;
+      background-color: #f9f7f6;
       color: #333;
     }
-    input, select, button {
-      padding: 8px;
-      margin: 5px 0;
-      width: 100%;
-      box-sizing: border-box;
+    header, footer {
+      background-color: #a2d2ff;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background-color: #cdb4db;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #333;
+    }
+    .container {
+      padding: 1rem 2rem;
+    }
+    h2 {
+      border-bottom: 2px solid #bde0fe;
+      padding-bottom: 5px;
     }
     table {
       width: 100%;
-      margin-top: 20px;
       border-collapse: collapse;
-      background-color: white;
+      margin-top: 10px;
+      background: white;
     }
     th, td {
+      padding: 0.5rem;
       border: 1px solid #ccc;
-      padding: 10px;
-      text-align: left;
     }
-    th {
-      background-color: #eee;
+    input, select, button {
+      padding: 0.5rem;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #ffafcc;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ffc8dd;
     }
     .rusak { color: red; font-weight: bold; }
     .usang { color: orange; font-weight: bold; }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Sistem Informasi Manajemen Perpustakaan</h1>
+  </header>
 
-  <h1>📚 Manajemen Koleksi</h1>
+  <nav>
+    <a href="#katalog">Katalog Buku</a>
+    <a href="#koleksi">Tambah Koleksi</a>
+    <a href="#laporan">Laporan</a>
+  </nav>
 
-  <div>
-    <input id="judul" placeholder="Judul Koleksi">
-    <input id="jenis" placeholder="Jenis (Buku, Jurnal, Majalah)">
-    <input id="pengarang" placeholder="Pengarang/Editor">
-    <input id="tahun" type="number" placeholder="Tahun Terbit">
-    <input id="kode" placeholder="Kode Dewey Decimal (contoh: 100)">
-    <select id="kondisi">
-      <option value="baik">Baik</option>
-      <option value="rusak">Rusak</option>
-      <option value="usang">Usang</option>
-    </select>
-    <button onclick="tambah()">➕ Tambah Koleksi</button>
+  <div class="container">
+    <section id="koleksi">
+      <h2>➕ Tambah Koleksi Buku</h2>
+      <input id="judul" placeholder="Judul Buku">
+      <input id="penulis" placeholder="Penulis">
+      <select id="kategori">
+        <option value="Buku Cerita Anak">Buku Cerita Anak</option>
+        <option value="Buku Pengetahuan Umum">Buku Pengetahuan Umum</option>
+        <option value="Semua Pelajaran">Semua Pelajaran</option>
+        <option value="Referensi / Pengetahuan Lainnya">Referensi / Pengetahuan Lainnya</option>
+      </select>
+      <input id="kode" placeholder="Kode Dewey Decimal">
+      <select id="status">
+        <option value="Tersedia">Tersedia</option>
+        <option value="Dipinjam">Dipinjam</option>
+        <option value="Rusak">Rusak</option>
+        <option value="Usang">Usang</option>
+      </select>
+      <button onclick="tambahKoleksi()">Tambah Buku</button>
+    </section>
+
+    <section id="katalog">
+      <h2>📚 Daftar Katalog Buku</h2>
+      <input type="text" id="search" placeholder="Cari berdasarkan judul atau penulis" onkeyup="cariKoleksi()">
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Judul</th>
+            <th>Penulis</th>
+            <th>Kategori</th>
+            <th>Kode</th>
+            <th>Status</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tabelBuku"></tbody>
+      </table>
+    </section>
+
+    <section id="laporan">
+      <h2>Laporan Statistik</h2>
+      <ul id="laporanStat"></ul>
+    </section>
   </div>
 
-  <h2>🔎 Pencarian Koleksi</h2>
-  <input id="search" placeholder="Cari berdasarkan Judul atau Kode" onkeyup="cari()">
-
-  <h2>📋 Daftar Koleksi</h2>
-  <table id="koleksiTable">
-    <thead>
-      <tr>
-        <th>Judul</th>
-        <th>Jenis</th>
-        <th>Pengarang</th>
-        <th>Tahun</th>
-        <th>Kode Dewey</th>
-        <th>Kondisi</th>
-        <th>Aksi</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <footer>
+    <p>&copy; 2025 Sistem Perpustakaan Digital</p>
+  </footer>
 
   <script>
     function ambilData() {
-      return JSON.parse(localStorage.getItem("koleksi") || "[]");
+      return JSON.parse(localStorage.getItem("buku") || "[]");
     }
 
     function simpanData(data) {
-      localStorage.setItem("koleksi", JSON.stringify(data));
+      localStorage.setItem("buku", JSON.stringify(data));
     }
 
-    function tampilkan(data = ambilData()) {
-      const tbody = document.querySelector("#koleksiTable tbody");
+    function tampilkan() {
+      const data = ambilData();
+      const tbody = document.getElementById("tabelBuku");
       tbody.innerHTML = "";
       data.forEach((item, i) => {
-        const kondisiClass = item.kondisi === "rusak" ? "rusak" : item.kondisi === "usang" ? "usang" : "";
+        const kondisiClass = item.status === "Rusak" ? "rusak" : item.status === "Usang" ? "usang" : "";
         tbody.innerHTML += `
           <tr>
+            <td>${i + 1}</td>
             <td>${item.judul}</td>
-            <td>${item.jenis}</td>
-            <td>${item.pengarang}</td>
-            <td>${item.tahun}</td>
+            <td>${item.penulis}</td>
+            <td>${item.kategori}</td>
             <td>${item.kode}</td>
-            <td class="${kondisiClass}">${item.kondisi}</td>
-            <td>
-              ${item.kondisi !== 'baik' ? `<button onclick="hapus(${i})">🧹 Hapus</button>` : '-'}
-            </td>
-          </tr>
-        `;
+            <td class="${kondisiClass}">${item.status}</td>
+            <td>${item.status !== "Tersedia" ? `<button onclick="hapus(${i})">Hapus</button>` : "-"}</td>
+          </tr>`;
       });
+      updateLaporan();
     }
 
-    function tambah() {
+    function tambahKoleksi() {
       const judul = document.getElementById("judul").value.trim();
-      const jenis = document.getElementById("jenis").value.trim();
-      const pengarang = document.getElementById("pengarang").value.trim();
-      const tahun = document.getElementById("tahun").value.trim();
+      const penulis = document.getElementById("penulis").value.trim();
+      const kategori = document.getElementById("kategori").value;
       const kode = document.getElementById("kode").value.trim();
-      const kondisi = document.getElementById("kondisi").value;
+      const status = document.getElementById("status").value;
 
-      if (!judul || !jenis || !pengarang || !tahun || !kode) {
-        alert("⚠️ Lengkapi semua data koleksi!");
+      if (!judul || !penulis || !kategori || !kode) {
+        alert("Harap lengkapi semua data!");
         return;
       }
 
       const data = ambilData();
-      data.push({ judul, jenis, pengarang, tahun, kode, kondisi });
+      data.push({ judul, penulis, kategori, kode, status });
       simpanData(data);
       tampilkan();
       kosongkanForm();
@@ -125,34 +175,60 @@
 
     function kosongkanForm() {
       document.getElementById("judul").value = "";
-      document.getElementById("jenis").value = "";
-      document.getElementById("pengarang").value = "";
-      document.getElementById("tahun").value = "";
+      document.getElementById("penulis").value = "";
       document.getElementById("kode").value = "";
-      document.getElementById("kondisi").value = "baik";
+      document.getElementById("kategori").value = "Buku Cerita Anak";
+      document.getElementById("status").value = "Tersedia";
     }
 
-    function hapus(index) {
-      if (confirm("Yakin ingin menghapus koleksi ini?")) {
+    function hapus(i) {
+      if (confirm("Yakin ingin menghapus buku ini?")) {
         const data = ambilData();
-        data.splice(index, 1);
+        data.splice(i, 1);
         simpanData(data);
         tampilkan();
       }
     }
 
-    function cari() {
+    function cariKoleksi() {
       const keyword = document.getElementById("search").value.toLowerCase();
-      const data = ambilData().filter(item =>
-        item.judul.toLowerCase().includes(keyword) ||
-        item.kode.toLowerCase().includes(keyword)
+      const data = ambilData().filter(buku =>
+        buku.judul.toLowerCase().includes(keyword) ||
+        buku.penulis.toLowerCase().includes(keyword)
       );
-      tampilkan(data);
+      const tbody = document.getElementById("tabelBuku");
+      tbody.innerHTML = "";
+      data.forEach((item, i) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${item.judul}</td>
+            <td>${item.penulis}</td>
+            <td>${item.kategori}</td>
+            <td>${item.kode}</td>
+            <td>${item.status}</td>
+            <td>${item.status !== "Tersedia" ? `<button onclick="hapus(${i})">Hapus</button>` : "-"}</td>
+          </tr>`;
+      });
     }
 
-    // Tampilkan saat halaman dimuat
+    function updateLaporan() {
+      const data = ambilData();
+      const total = data.length;
+      const dipinjam = data.filter(x => x.status === "Dipinjam").length;
+      const rusak = data.filter(x => x.status === "Rusak").length;
+      const usang = data.filter(x => x.status === "Usang").length;
+      const tersedia = data.filter(x => x.status === "Tersedia").length;
+      document.getElementById("laporanStat").innerHTML = `
+        <li>Total Buku: ${total}</li>
+        <li>Buku Tersedia: ${tersedia}</li>
+        <li>Buku Dipinjam: ${dipinjam}</li>
+        <li>Buku Rusak: ${rusak}</li>
+        <li>Buku Usang: ${usang}</li>`;
+    }
+
+    // Tampilkan saat halaman dibuka
     tampilkan();
   </script>
-
 </body>
 </html>
