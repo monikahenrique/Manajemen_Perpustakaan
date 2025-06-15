@@ -2,24 +2,52 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Manajemen Anggota</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manajemen Anggota - Perpustakaan</title>
+  <!-- Link Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      padding: 20px;
-    }
-
-    h2 {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f7f6;
       color: #333;
     }
 
+    header, footer {
+      background-color: #a2d2ff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #cdb4db;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .container {
+      padding: 1rem 2rem;
+    }
+
+    h2 {
+      border-bottom: 2px solid #bde0fe;
+      padding-bottom: 5px;
+    }
+
     form {
-      background: #fff;
+      background-color: #ffffff;
       padding: 20px;
       border-radius: 10px;
-      max-width: 500px;
+      max-width: 600px;
       margin-bottom: 30px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
@@ -27,90 +55,113 @@
     label {
       display: block;
       margin-top: 10px;
+      font-weight: 500;
     }
 
-    input, select {
-      width: 100%;
+    input, select, button {
       padding: 10px;
       margin-top: 5px;
+      margin-bottom: 15px;
+      width: 100%;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
 
     button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      background-color: #4CAF50;
+      background-color: #ffafcc;
       border: none;
-      color: white;
+      font-weight: bold;
       cursor: pointer;
-      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #ffc8dd;
     }
 
     table {
       width: 100%;
-      background: white;
       border-collapse: collapse;
-      border-radius: 10px;
+      margin-top: 20px;
+      background-color: #fff;
+      border-radius: 8px;
       overflow: hidden;
     }
 
     th, td {
       padding: 10px;
-      border-bottom: 1px solid #ddd;
+      border: 1px solid #ccc;
+      text-align: center;
     }
 
     th {
-      background-color: #eee;
+      background-color: #bde0fe;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1><i class="fas fa-book-reader"></i> Sistem Informasi Manajemen Perpustakaan</h1>
+  </header>
 
-  <h2>Pendaftaran Anggota</h2>
-  <form id="formAnggota">
-    <label>Nama Lengkap</label>
-    <input type="text" name="nama" required />
+  <nav>
+    <a href="#katalog"><i class="fas fa-book"></i> Katalog Buku</a>
+    <a href="#login"><i class="fas fa-user-lock"></i> Login Anggota</a>
+    <a href="#peminjaman"><i class="fas fa-book-open-reader"></i> Peminjaman</a>
+    <a href="#anggota"><i class="fas fa-users"></i> Anggota</a>
+    <a href="#laporan"><i class="fas fa-chart-bar"></i> Laporan</a>
+  </nav>
 
-    <label>Jenis Keanggotaan</label>
-    <select name="jenis" required>
-      <option value="">-- Pilih Jenis --</option>
-      <option value="mahasiswa">Mahasiswa</option>
-      <option value="siswa">Siswa</option>
-      <option value="umum">Umum</option>
-    </select>
+  <div class="container" id="anggota">
+    <h2><i class="fas fa-user-plus"></i> Pendaftaran Anggota</h2>
+    <form id="formAnggota">
+      <label><i class="fas fa-user"></i> Nama Lengkap</label>
+      <input type="text" name="nama" required />
 
-    <label>Email</label>
-    <input type="email" name="email" required />
+      <label><i class="fas fa-id-card"></i> Jenis Keanggotaan</label>
+      <select name="jenis" required>
+        <option value="">-- Pilih Jenis --</option>
+        <option value="mahasiswa">Mahasiswa</option>
+        <option value="siswa">Siswa</option>
+        <option value="umum">Umum</option>
+      </select>
 
-    <label>No HP</label>
-    <input type="text" name="kontak" required />
+      <label><i class="fas fa-envelope"></i> Email</label>
+      <input type="email" name="email" required />
 
-    <label>Status</label>
-    <select name="status" required>
-      <option value="aktif">Aktif</option>
-      <option value="tidak_aktif">Tidak Aktif</option>
-      <option value="diblokir">Diblokir</option>
-    </select>
+      <label><i class="fas fa-phone"></i> No HP</label>
+      <input type="text" name="kontak" required />
 
-    <button type="submit">Daftarkan Anggota</button>
-  </form>
+      <label><i class="fas fa-toggle-on"></i> Status</label>
+      <select name="status" required>
+        <option value="aktif">Aktif</option>
+        <option value="tidak_aktif">Tidak Aktif</option>
+        <option value="diblokir">Diblokir</option>
+      </select>
 
-  <h2>Daftar Anggota (Contoh)</h2>
-  <table id="tabelAnggota">
-    <thead>
-      <tr>
-        <th>Nama</th>
-        <th>Jenis</th>
-        <th>Email</th>
-        <th>No HP</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Data dummy sementara -->
-    </tbody>
-  </table>
+      <button type="submit"><i class="fas fa-plus-circle"></i> Daftarkan Anggota</button>
+    </form>
+
+    <h2><i class="fas fa-table-list"></i> Daftar Anggota</h2>
+    <table id="tabelAnggota">
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>Jenis</th>
+          <th>Email</th>
+          <th>No HP</th>
+          <th>Status</th>
+          <th>Batas Peminjaman</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data anggota ditambahkan di sini -->
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Sistem Perpustakaan Digital</p>
+  </footer>
 
   <script>
     const form = document.getElementById("formAnggota");
@@ -125,6 +176,11 @@
       const kontak = form.kontak.value;
       const status = form.status.value;
 
+      let batas = 0;
+      if (jenis === "mahasiswa") batas = 5;
+      else if (jenis === "siswa") batas = 3;
+      else if (jenis === "umum") batas = 2;
+
       const row = `
         <tr>
           <td>${nama}</td>
@@ -132,6 +188,7 @@
           <td>${email}</td>
           <td>${kontak}</td>
           <td>${status}</td>
+          <td>${batas} buku</td>
         </tr>
       `;
 
@@ -139,6 +196,5 @@
       form.reset();
     });
   </script>
-
 </body>
 </html>
