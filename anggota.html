@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manajemen Anggota</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    table {
+      width: 100%;
+      background: white;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Pendaftaran Anggota</h2>
+  <form id="formAnggota">
+    <label>Nama Lengkap</label>
+    <input type="text" name="nama" required />
+
+    <label>Jenis Keanggotaan</label>
+    <select name="jenis" required>
+      <option value="">-- Pilih Jenis --</option>
+      <option value="mahasiswa">Mahasiswa</option>
+      <option value="siswa">Siswa</option>
+      <option value="umum">Umum</option>
+    </select>
+
+    <label>Email</label>
+    <input type="email" name="email" required />
+
+    <label>No HP</label>
+    <input type="text" name="kontak" required />
+
+    <label>Status</label>
+    <select name="status" required>
+      <option value="aktif">Aktif</option>
+      <option value="tidak_aktif">Tidak Aktif</option>
+      <option value="diblokir">Diblokir</option>
+    </select>
+
+    <button type="submit">Daftarkan Anggota</button>
+  </form>
+
+  <h2>Daftar Anggota (Contoh)</h2>
+  <table id="tabelAnggota">
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Jenis</th>
+        <th>Email</th>
+        <th>No HP</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data dummy sementara -->
+    </tbody>
+  </table>
+
+  <script>
+    const form = document.getElementById("formAnggota");
+    const tabel = document.querySelector("#tabelAnggota tbody");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const nama = form.nama.value;
+      const jenis = form.jenis.value;
+      const email = form.email.value;
+      const kontak = form.kontak.value;
+      const status = form.status.value;
+
+      const row = `
+        <tr>
+          <td>${nama}</td>
+          <td>${jenis}</td>
+          <td>${email}</td>
+          <td>${kontak}</td>
+          <td>${status}</td>
+        </tr>
+      `;
+
+      tabel.innerHTML += row;
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>
