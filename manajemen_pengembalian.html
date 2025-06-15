@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Manajemen Pengembalian Buku</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    h2 {
+      color: #2c3e50;
+    }
+    form {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      width: 400px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 6px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Form Pengembalian Buku</h2>
+
+  <form id="formPengembalian">
+    <label for="id_peminjaman">ID Peminjaman</label>
+    <input type="number" id="id_peminjaman" name="id_peminjaman" required>
+
+    <label for="tgl_kembali_aktual">Tanggal Pengembalian Aktual</label>
+    <input type="date" id="tgl_kembali_aktual" name="tgl_kembali_aktual" required>
+
+    <label for="catatan">Catatan (Opsional)</label>
+    <textarea id="catatan" name="catatan" rows="3" placeholder="Contoh: Buku rusak, keterlambatan, dll."></textarea>
+
+    <button type="submit">Proses Pengembalian</button>
+  </form>
+
+</body>
+</html>
