@@ -1,155 +1,162 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manajemen Staf & Petugas Perpustakaan</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manajemen Staf & Petugas</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #e0eafc, #cfdef3);
       margin: 0;
-      padding: 40px 20px;
+      padding: 0;
+      background-color: #f9f7f6;
+      color: #333;
+    }
+
+    header, footer {
+      background-color: #a2d2ff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #cdb4db;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #333;
     }
 
     .container {
-      max-width: 1100px;
+      padding: 1rem 2rem;
+      max-width: 900px;
       margin: auto;
-      background-color: #ffffff;
-      border-radius: 12px;
-      padding: 30px 40px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
 
     h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #2c3e50;
-      font-size: 28px;
+      border-bottom: 2px solid #bde0fe;
+      padding-bottom: 5px;
+      margin-bottom: 20px;
     }
 
-    .top-bar {
+    .search-add {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       gap: 10px;
     }
 
-    .top-bar input[type="text"] {
-      flex-grow: 1;
-      padding: 12px 15px;
-      font-size: 14px;
+    .search-add input[type="text"] {
+      flex: 1;
+      padding: 0.6rem;
       border: 1px solid #ccc;
-      border-radius: 8px;
-      transition: 0.3s;
-    }
-
-    .top-bar input[type="text"]:focus {
-      border-color: #007bff;
-      outline: none;
-      box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
-    }
-
-    .top-bar a button {
-      padding: 12px 25px;
-      background: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       font-size: 14px;
-      cursor: pointer;
-      transition: 0.3s;
     }
 
-    .top-bar a button:hover {
-      background: #0056b3;
+    .search-add .btn-tambah {
+      white-space: nowrap;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
-      border-radius: 8px;
+      background-color: white;
+      border-radius: 6px;
       overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
 
     th, td {
-      padding: 14px;
+      border: 1px solid #ccc;
+      padding: 0.75rem;
       text-align: center;
     }
 
     th {
-      background-color: #007bff;
-      color: white;
-      font-weight: 600;
+      background-color: #bde0fe;
     }
 
-    tr:nth-child(even) {
-      background-color: #f2f6fc;
-    }
-
-    td button {
-      padding: 8px 12px;
-      font-size: 12px;
+    .btn {
+      padding: 6px 12px;
       border: none;
-      border-radius: 5px;
+      border-radius: 4px;
+      font-weight: bold;
       cursor: pointer;
-      margin: 2px;
-      transition: 0.3s;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-tambah {
+      background-color: #ffafcc;
+    }
+
+    .btn-tambah:hover {
+      background-color: #ffc8dd;
     }
 
     .btn-edit {
-      background-color: #ffc107;
-      color: black;
+      background-color: #ffd166;
     }
 
     .btn-edit:hover {
-      background-color: #e0a800;
+      background-color: #ffca3a;
     }
 
     .btn-delete {
-      background-color: #dc3545;
+      background-color: #ef476f;
       color: white;
     }
 
     .btn-delete:hover {
-      background-color: #c82333;
+      background-color: #d62839;
     }
 
     .empty {
       text-align: center;
-      color: #888;
       font-style: italic;
-      padding: 25px;
+      color: #777;
     }
 
     @media (max-width: 600px) {
-      .top-bar {
+      .search-add {
         flex-direction: column;
         align-items: stretch;
       }
 
-      .top-bar input[type="text"],
-      .top-bar a button {
+      .search-add input[type="text"],
+      .search-add .btn-tambah {
         width: 100%;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Manajemen Staf & Petugas Perpustakaan</h2>
+  <header>
+    <h1>Sistem Informasi Manajemen Perpustakaan</h1>
+  </header>
 
-    <div class="top-bar">
-      <input type="text" placeholder="Cari nama atau jabatan staf...">
+  <nav>
+    <a href="index.html">Beranda</a>
+    <a href="katalog.html">Katalog Buku</a>
+    <a href="peminjaman.html">Peminjaman</a>
+    <a href="staf_dan_petugas.html">Manajemen Staf</a>
+  </nav>
+
+  <div class="container">
+    <h2>Manajemen Staf & Petugas</h2>
+
+    <div class="search-add">
+      <input type="text" placeholder="Cari berdasarkan nama atau jabatan..." />
       <a href="tambah_staf_dan_petugas.html">
-        <button>➕ Tambah Staf / Petugas</button>
+        <button class="btn btn-tambah">+ Tambah Staf/Petugas</button>
       </a>
     </div>
 
@@ -170,5 +177,9 @@
       </tbody>
     </table>
   </div>
+
+  <footer>
+    <p>&copy; 2025 Sistem Perpustakaan Digital</p>
+  </footer>
 </body>
 </html>
