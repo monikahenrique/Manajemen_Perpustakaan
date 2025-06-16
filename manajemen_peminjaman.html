@@ -1,77 +1,170 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Manajemen Peminjaman Buku</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 30px;
-    }
-    h2 {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f7f6;
       color: #333;
     }
-    form {
-      margin-bottom: 20px;
-      padding: 15px;
-      border: 1px solid #ccc;
-      width: 400px;
+
+    header, footer {
+      background-color: #a2d2ff;
+      padding: 1rem;
+      text-align: center;
     }
+
+    nav {
+      background-color: #cdb4db;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: #333;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #555;
+    }
+
     label {
       display: block;
       margin-top: 10px;
+      font-weight: 500;
     }
-    input, select {
+
+    input {
       width: 100%;
-      padding: 5px;
+      padding: 10px;
       margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
+
     button {
-      margin-top: 15px;
-      padding: 10px 15px;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #a2d2ff;
+      border: none;
+      border-radius: 5px;
+      color: #333;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #bde0fe;
+      color: #333;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f1f1f1;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Manajemen Perpustakaan</h1>
+  </header>
 
-  <h2>Tambah Buku</h2>
-  <form id="formBuku">
-    <label for="judul">Judul Buku</label>
-    <input type="text" id="judul" name="judul" required>
+  <nav>
+    <a href="#">Beranda</a>
+    <a href="#">Daftar Buku</a>
+    <a href="#">Peminjaman</a>
+    <a href="#">Pengembalian</a>
+  </nav>
 
-    <label for="penulis">Penulis</label>
-    <input type="text" id="penulis" name="penulis" required>
+  <div class="container">
+    <h2>Formulir Peminjaman Buku</h2>
+    <form id="formPeminjaman">
+      <label for="nama">Nama Peminjam</label>
+      <input type="text" id="nama" required />
 
-    <label for="stok">Stok</label>
-    <input type="number" id="stok" name="stok" required>
+      <label for="judul">Judul Buku</label>
+      <input type="text" id="judul" required />
 
-    <button type="submit">Simpan Buku</button>
-  </form>
+      <label for="pinjam">Tanggal Peminjaman</label>
+      <input type="date" id="pinjam" required />
 
-  <h2>Tambah Anggota</h2>
-  <form id="formAnggota">
-    <label for="nama">Nama Anggota</label>
-    <input type="text" id="nama" name="nama" required>
+      <label for="kembali">Tanggal Pengembalian</label>
+      <input type="date" id="kembali" required />
 
-    <button type="submit">Simpan Anggota</button>
-  </form>
+      <button type="submit">Tambah Peminjaman</button>
+    </form>
 
-  <h2>Peminjaman Buku</h2>
-  <form id="formPeminjaman">
-    <label for="id_buku">ID Buku</label>
-    <input type="number" id="id_buku" name="id_buku" required>
+    <table id="tabelPeminjaman">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama</th>
+          <th>Judul Buku</th>
+          <th>Tanggal Pinjam</th>
+          <th>Tanggal Kembali</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 
-    <label for="id_anggota">ID Anggota</label>
-    <input type="number" id="id_anggota" name="id_anggota" required>
+  <footer>
+    <p>&copy; 2025 Perpustakaan Digital</p>
+  </footer>
 
-    <label for="tgl_pinjam">Tanggal Pinjam</label>
-    <input type="date" id="tgl_pinjam" name="tgl_pinjam" required>
+  <script>
+    const form = document.getElementById("formPeminjaman");
+    const tbody = document.querySelector("#tabelPeminjaman tbody");
+    let count = 1;
 
-    <label for="tgl_kembali">Tanggal Kembali</label>
-    <input type="date" id="tgl_kembali" name="tgl_kembali" required>
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    <button type="submit">Pinjam Buku</button>
-  </form>
+      const nama = document.getElementById("nama").value;
+      const judul = document.getElementById("judul").value;
+      const pinjam = document.getElementById("pinjam").value;
+      const kembali = document.getElementById("kembali").value;
 
+      const row = tbody.insertRow();
+      row.innerHTML = `
+        <td>${count++}</td>
+        <td>${nama}</td>
+        <td>${judul}</td>
+        <td>${pinjam}</td>
+        <td>${kembali}</td>
+      `;
+
+      form.reset();
+    });
+  </script>
 </body>
 </html>

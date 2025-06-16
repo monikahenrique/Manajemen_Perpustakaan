@@ -1,53 +1,170 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Manajemen Pengembalian Buku</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 30px;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f7f6;
+      color: #333;
     }
+
+    header, footer {
+      background-color: #a2d2ff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #cdb4db;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: #333;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
     h2 {
-      color: #2c3e50;
+      text-align: center;
+      color: #555;
     }
-    form {
-      margin-top: 20px;
-      padding: 15px;
-      border: 1px solid #ccc;
-      width: 400px;
-    }
+
     label {
       display: block;
       margin-top: 10px;
+      font-weight: 500;
     }
-    input, textarea {
+
+    input {
       width: 100%;
-      padding: 6px;
+      padding: 10px;
       margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
+
     button {
-      margin-top: 15px;
-      padding: 10px 15px;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #a2d2ff;
+      border: none;
+      border-radius: 5px;
+      color: #333;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #bde0fe;
+      color: #333;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f1f1f1;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Manajemen Perpustakaan</h1>
+  </header>
 
-  <h2>Form Pengembalian Buku</h2>
+  <nav>
+    <a href="#">Beranda</a>
+    <a href="#">Daftar Buku</a>
+    <a href="#">Peminjaman</a>
+    <a href="#">Pengembalian</a>
+  </nav>
 
-  <form id="formPengembalian">
-    <label for="id_peminjaman">ID Peminjaman</label>
-    <input type="number" id="id_peminjaman" name="id_peminjaman" required>
+  <div class="container">
+    <h2>Formulir Pengembalian Buku</h2>
+    <form id="formPengembalian">
+      <label for="nama">Nama Peminjam</label>
+      <input type="text" id="nama" required />
 
-    <label for="tgl_kembali_aktual">Tanggal Pengembalian Aktual</label>
-    <input type="date" id="tgl_kembali_aktual" name="tgl_kembali_aktual" required>
+      <label for="judul">Judul Buku</label>
+      <input type="text" id="judul" required />
 
-    <label for="catatan">Catatan (Opsional)</label>
-    <textarea id="catatan" name="catatan" rows="3" placeholder="Contoh: Buku rusak, keterlambatan, dll."></textarea>
+      <label for="tglKembali">Tanggal Pengembalian</label>
+      <input type="date" id="tglKembali" required />
 
-    <button type="submit">Proses Pengembalian</button>
-  </form>
+      <label for="status">Status Pengembalian</label>
+      <input type="text" id="status" placeholder="Sudah dikembalikan / Terlambat" required />
 
+      <button type="submit">Catat Pengembalian</button>
+    </form>
+
+    <table id="tabelPengembalian">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama</th>
+          <th>Judul Buku</th>
+          <th>Tanggal Pengembalian</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Perpustakaan Digital</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("formPengembalian");
+    const tbody = document.querySelector("#tabelPengembalian tbody");
+    let count = 1;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const nama = document.getElementById("nama").value;
+      const judul = document.getElementById("judul").value;
+      const tglKembali = document.getElementById("tglKembali").value;
+      const status = document.getElementById("status").value;
+
+      const row = tbody.insertRow();
+      row.innerHTML = `
+        <td>${count++}</td>
+        <td>${nama}</td>
+        <td>${judul}</td>
+        <td>${tglKembali}</td>
+        <td>${status}</td>
+      `;
+
+      form.reset();
+    });
+  </script>
 </body>
 </html>
