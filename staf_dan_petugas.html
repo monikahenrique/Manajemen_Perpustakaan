@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manajemen Staf & Petugas</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f7f6;
+      color: #333;
+    }
+
+    header, footer {
+      background-color: #a2d2ff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #cdb4db;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .container {
+      padding: 1rem 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h2 {
+      border-bottom: 2px solid #bde0fe;
+      padding-bottom: 5px;
+      margin-bottom: 20px;
+    }
+
+    .search-add {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    .search-add input[type="text"] {
+      flex: 1;
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .search-add .btn-tambah {
+      white-space: nowrap;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background-color: white;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    th {
+      background-color: #bde0fe;
+    }
+
+    .btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-tambah {
+      background-color: #ffafcc;
+    }
+
+    .btn-tambah:hover {
+      background-color: #ffc8dd;
+    }
+
+    .btn-edit {
+      background-color: #ffd166;
+    }
+
+    .btn-edit:hover {
+      background-color: #ffca3a;
+    }
+
+    .btn-delete {
+      background-color: #ef476f;
+      color: white;
+    }
+
+    .btn-delete:hover {
+      background-color: #d62839;
+    }
+
+    .empty {
+      text-align: center;
+      font-style: italic;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      .search-add {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-add input[type="text"],
+      .search-add .btn-tambah {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sistem Informasi Manajemen Perpustakaan</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Beranda</a>
+    <a href="katalog.html">Katalog Buku</a>
+    <a href="peminjaman.html">Peminjaman</a>
+    <a href="staf_dan_petugas.html">Manajemen Staf</a>
+  </nav>
+
+  <div class="container">
+    <h2>Manajemen Staf & Petugas</h2>
+
+    <div class="search-add">
+      <input type="text" placeholder="Cari berdasarkan nama atau jabatan..." />
+      <a href="tambah_staf_dan_petugas.html">
+        <button class="btn btn-tambah">+ Tambah Staf/Petugas</button>
+      </a>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama</th>
+          <th>Jabatan</th>
+          <th>Email</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="5" class="empty">Belum ada data staf yang ditampilkan.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Sistem Perpustakaan Digital</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tambah Staf / Petugas</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f7f6;
+      color: #333;
+    }
+
+    header, footer {
+      background-color: #a2d2ff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #cdb4db;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background-color: #ffffff;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      border-bottom: 2px solid #bde0fe;
+      padding-bottom: 10px;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #a2d2ff;
+      box-shadow: 0 0 0 3px rgba(162, 210, 255, 0.3);
+      outline: none;
+    }
+
+    .btn-group {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-submit {
+      background-color: #ffafcc;
+      flex: 1;
+    }
+
+    .btn-submit:hover {
+      background-color: #ffc8dd;
+    }
+
+    .btn-cancel {
+      background-color: #ef476f;
+      color: white;
+      flex: 1;
+    }
+
+    .btn-cancel:hover {
+      background-color: #d62839;
+    }
+
+    @media (max-width: 480px) {
+      .btn-group {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sistem Informasi Manajemen Perpustakaan</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Beranda</a>
+    <a href="katalog.html">Katalog Buku</a>
+    <a href="peminjaman.html">Peminjaman</a>
+    <a href="staf_dan_petugas.html">Manajemen Staf</a>
+  </nav>
+
+  <div class="container">
+    <h2>Form Tambah Staf / Petugas</h2>
+    <form action="#" method="POST">
+      <label for="nama">Nama Lengkap:</label>
+      <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap" required />
+
+      <label for="jabatan">Jabatan:</label>
+      <select id="jabatan" name="jabatan" required>
+        <option value="">-- Pilih Jabatan --</option>
+        <option value="Kepala Perpustakaan">Kepala Perpustakaan</option>
+        <option value="Petugas Peminjaman">Petugas Peminjaman</option>
+        <option value="Petugas Pengembalian">Petugas Pengembalian</option>
+        <option value="Petugas Katalog">Petugas Katalog</option>
+      </select>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="contoh@email.com" required />
+
+      <label for="telepon">No. HP:</label>
+      <input type="text" id="telepon" name="telepon" placeholder="0812xxxxxxx" required />
+
+      <div class="btn-group">
+        <button type="submit" class="btn-submit">Simpan</button>
+        <button type="button" class="btn-cancel" onclick="window.location.href='staf_dan_petugas.html'">Batal</button>
+      </div>
+    </form>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Sistem Perpustakaan Digital</p>
+  </footer>
+</body>
+</html>
