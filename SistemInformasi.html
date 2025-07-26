@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manajemen Perpustakaan</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0; padding: 0;
+      background-color: #f9f7f6;
+      color: #333;
+    }
+    header, footer {
+      background-color: #a2d2ff;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background-color: #cdb4db;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #333;
+    }
+    .container {
+      padding: 1rem 2rem;
+    }
+    h2 {
+      border-bottom: 2px solid #bde0fe;
+      padding-bottom: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+    }
+    input, select, button {
+      padding: 0.5rem;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+    button {
+      background-color: #ffafcc;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ffc8dd;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sistem Informasi Manajemen Perpustakaan</h1>
+  </header>
+
+  <nav>
+    <a href="#katalog">Katalog Buku</a>
+    <a href="#login">Login Anggota</a>
+    <a href="#peminjaman">Peminjaman</a>
+    <a href="#laporan">Laporan</a>
+  </nav>
+
+  <div class="container">
+    <section id="katalog">
+      <h2>Katalog Buku</h2>
+      <form>
+        <input type="text" placeholder="Cari buku berdasarkan judul atau penulis">
+        <button type="submit">Cari</button>
+      </form>
+      <table>
+        <tr>
+          <th>No</th>
+          <th>Judul</th>
+          <th>Penulis</th>
+          <th>Kategori</th>
+          <th>Status</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Belajar HTML</td>
+          <td>Andi</td>
+          <td>Teknologi</td>
+          <td>Tersedia</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Cinta di Musim Semi</td>
+          <td>Rina</td>
+          <td>Fiksi</td>
+          <td>Dipinjam</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="login">
+      <h2>Login Anggota</h2>
+      <form>
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+        <button type="submit">Login</button>
+      </form>
+    </section>
+
+    <section id="peminjaman">
+      <h2>Peminjaman Buku</h2>
+      <form>
+        <select>
+          <option>Pilih Buku</option>
+          <option>Belajar HTML</option>
+        </select>
+        <label>Tanggal Pinjam:</label>
+        <input type="date">
+        <label>Tanggal Kembali:</label>
+        <input type="date">
+        <button type="submit">Pinjam</button>
+      </form>
+    </section>
+
+    <section id="laporan">
+      <h2>Laporan & Statistik</h2>
+      <ul>
+        <li>Total Buku: 120</li>
+        <li>Anggota Aktif: 45</li>
+        <li>Buku Sedang Dipinjam: 32</li>
+      </ul>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Sistem Perpustakaan Digital</p>
+  </footer>
+</body>
+</html>
