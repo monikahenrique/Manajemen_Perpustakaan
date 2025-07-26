@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manajemen Perpustakaan</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0; padding: 0;
+      background-color: #f9f7f6;
+      color: #333;
+    }
+    header, footer {
+      background-color: #a2d2ff;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background-color: #cdb4db;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #333;
+    }
+    .container {
+      padding: 1rem 2rem;
+    }
+    h2 {
+      border-bottom: 2px solid #bde0fe;
+      padding-bottom: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: white;
+    }
+    th, td {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+    }
+    input, select, button {
+      padding: 0.5rem;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #ffafcc;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ffc8dd;
+    }
+    .rusak { color: red; font-weight: bold; }
+    .usang { color: orange; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sistem Informasi Manajemen Perpustakaan</h1>
+  </header>
+
+  <nav>
+    <a href="#katalog">Katalog Buku</a>
+    <a href="#koleksi">Tambah Koleksi</a>
+    <a href="#laporan">Laporan</a>
+  </nav>
+
+  <div class="container">
+    <section id="koleksi">
+      <h2>➕ Tambah Koleksi Buku</h2>
+      <input id="judul" placeholder="Judul Buku">
+      <input id="penulis" placeholder="Penulis">
+      <select id="kategori">
+        <option value="Buku Cerita Anak">Buku Cerita Anak</option>
+        <option value="Buku Pengetahuan Umum">Buku Pengetahuan Umum</option>
+        <option value="Semua Pelajaran">Semua Pelajaran</option>
+        <option value="Referensi / Pengetahuan Lainnya">Referensi / Pengetahuan Lainnya</option>
+      </select>
+      <input id="kode" placeholder="Kode Dewey Decimal">
+      <select id="status">
+        <option value="Tersedia">Tersedia</option>
+        <option value="Dipinjam">Dipinjam</option>
+        <option value="Rusak">Rusak</option>
+        <option value="Usang">Usang</option>
+      </select>
+      <button onclick="tambahKoleksi()">Tambah Buku</button>
+    </section>
+
+    <section id="katalog">
+      <h2>📚 Daftar Katalog Buku</h2>
+      <input type="text" id="search" placeholder="Cari berdasarkan judul atau penulis" onkeyup="cariKoleksi()">
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Judul</th>
+            <th>Penulis</th>
+            <th>Kategori</th>
+            <th>Kode</th>
+            <th>Status</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tabelBuku"></tbody>
+      </table>
+    </section>
+
+    <section id="laporan">
+      <h2>Laporan Statistik</h2>
+      <ul id="laporanStat"></ul>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Sistem Perpustakaan Digital</p>
+  </footer>
+
+  <script>
+    function ambilData() {
+      return JSON.parse(localStorage.getItem("buku") || "[]");
+    }
+
+    function simpanData(data) {
+      localStorage.setItem("buku", JSON.stringify(data));
+    }
+
+    function tampilkan() {
+      const data = ambilData();
+      const tbody = document.getElementById("tabelBuku");
+      tbody.innerHTML = "";
+      data.forEach((item, i) => {
+        const kondisiClass = item.status === "Rusak" ? "rusak" : item.status === "Usang" ? "usang" : "";
+        tbody.innerHTML += `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${item.judul}</td>
+            <td>${item.penulis}</td>
+            <td>${item.kategori}</td>
+            <td>${item.kode}</td>
+            <td class="${kondisiClass}">${item.status}</td>
+            <td>${item.status !== "Tersedia" ? `<button onclick="hapus(${i})">Hapus</button>` : "-"}</td>
+          </tr>`;
+      });
+      updateLaporan();
+    }
+
+    function tambahKoleksi() {
+      const judul = document.getElementById("judul").value.trim();
+      const penulis = document.getElementById("penulis").value.trim();
+      const kategori = document.getElementById("kategori").value;
+      const kode = document.getElementById("kode").value.trim();
+      const status = document.getElementById("status").value;
+
+      if (!judul || !penulis || !kategori || !kode) {
+        alert("Harap lengkapi semua data!");
+        return;
+      }
+
+      const data = ambilData();
+      data.push({ judul, penulis, kategori, kode, status });
+      simpanData(data);
+      tampilkan();
+      kosongkanForm();
+    }
+
+    function kosongkanForm() {
+      document.getElementById("judul").value = "";
+      document.getElementById("penulis").value = "";
+      document.getElementById("kode").value = "";
+      document.getElementById("kategori").value = "Buku Cerita Anak";
+      document.getElementById("status").value = "Tersedia";
+    }
+
+    function hapus(i) {
+      if (confirm("Yakin ingin menghapus buku ini?")) {
+        const data = ambilData();
+        data.splice(i, 1);
+        simpanData(data);
+        tampilkan();
+      }
+    }
+
+    function cariKoleksi() {
+      const keyword = document.getElementById("search").value.toLowerCase();
+      const data = ambilData().filter(buku =>
+        buku.judul.toLowerCase().includes(keyword) ||
+        buku.penulis.toLowerCase().includes(keyword)
+      );
+      const tbody = document.getElementById("tabelBuku");
+      tbody.innerHTML = "";
+      data.forEach((item, i) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${item.judul}</td>
+            <td>${item.penulis}</td>
+            <td>${item.kategori}</td>
+            <td>${item.kode}</td>
+            <td>${item.status}</td>
+            <td>${item.status !== "Tersedia" ? `<button onclick="hapus(${i})">Hapus</button>` : "-"}</td>
+          </tr>`;
+      });
+    }
+
+    function updateLaporan() {
+      const data = ambilData();
+      const total = data.length;
+      const dipinjam = data.filter(x => x.status === "Dipinjam").length;
+      const rusak = data.filter(x => x.status === "Rusak").length;
+      const usang = data.filter(x => x.status === "Usang").length;
+      const tersedia = data.filter(x => x.status === "Tersedia").length;
+      document.getElementById("laporanStat").innerHTML = `
+        <li>Total Buku: ${total}</li>
+        <li>Buku Tersedia: ${tersedia}</li>
+        <li>Buku Dipinjam: ${dipinjam}</li>
+        <li>Buku Rusak: ${rusak}</li>
+        <li>Buku Usang: ${usang}</li>`;
+    }
+
+    // Tampilkan saat halaman dibuka
+    tampilkan();
+  </script>
+</body>
+</html>
